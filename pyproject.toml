@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcmllm"
+version = "0.1.0"
+description = "Medical grounding vs. language-prior reliance in multilingual MLLMs (AfriMed-QA/VQA)"
+requires-python = ">=3.11"
+dependencies = [
+    "modal>=0.70",
+    "datasets>=2.18",
+    "pandas>=2.0",
+    "numpy>=1.26",
+    "pillow>=10.0",
+    "huggingface_hub>=0.25",
+]
+
+[project.optional-dependencies]
+# Only needed inside the Modal GPU image, not on your laptop — kept here so
+# `uv sync --extra serve` can smoke-test model loading locally if you have a GPU.
+serve = [
+    "torch>=2.4",
+    "transformers>=4.52",
+    "accelerate>=0.33",
+    "fastapi>=0.115",
+    "pydantic>=2.8",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mcmllm*"]
